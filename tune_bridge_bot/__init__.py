@@ -1,5 +1,12 @@
 """tune_bridge_bot — Music link converter bot package."""
 
+import logging
+
+logging.basicConfig(
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    level=logging.INFO
+)
+
 from tune_bridge_bot.models import Platform, SongInfo, MusicLinks, CacheEntry
 from tune_bridge_bot.text import TextNormalizer, ParsingUtils
 from tune_bridge_bot.infra import (

@@ -120,28 +120,28 @@ class MusicBot:
     async def cmd_start(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Handle /start command"""
         await update.message.reply_text(
-            "🎵 *Welcome to Music Link Converter Bot\\\\!*\\n\\n"
+            "🎵 *Welcome to Music Link Converter Bot\\!*\n\n"
             "Send me a music link from Spotify, YouTube Music, or Apple Music, "
-            "and I'll find it on all platforms\\\\.\\n\\n"
-            "_Powered by advanced parsing and fuzzy matching\\\\._",
+            "and I'll find it on all platforms\\.\n\n"
+            "_Powered by advanced parsing and fuzzy matching\\._",
             parse_mode=ParseMode.MARKDOWN_V2
         )
 
     async def cmd_help(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Handle /help command"""
         await update.message.reply_text(
-            "📖 *How to use:*\\n\\n"
-            "1\\\\. Send a music link\\n"
-            "2\\\\. I'll search for it on all platforms\\n"
-            "3\\\\. Get links with confidence scores\\\\!\\n\\n"
-            "*Supported platforms:*\\n"
-            "• Spotify\\n"
-            "• YouTube Music\\n"
-            "• Apple Music\\n\\n"
-            "*Commands:*\\n"
-            "/start \\\\- Start the bot\\n"
-            "/help \\\\- Show this help\\n"
-            "/stats \\\\- Show bot statistics",
+            "📖 *How to use:*\n\n"
+            "1\\. Send a music link\n"
+            "2\\. I'll search for it on all platforms\n"
+            "3\\. Get links with confidence scores\\!\n\n"
+            "*Supported platforms:*\n"
+            "• Spotify\n"
+            "• YouTube Music\n"
+            "• Apple Music\n\n"
+            "*Commands:*\n"
+            "/start \\- Start the bot\n"
+            "/help \\- Show this help\n"
+            "/stats \\- Show bot statistics",
             parse_mode=ParseMode.MARKDOWN_V2
         )
 
@@ -150,13 +150,13 @@ class MusicBot:
         cache_stats = self.query_cache.stats()
 
         text = (
-            f"📊 *Bot Statistics*\\n\\n"
-            f"Messages processed: {self.stats['messages_processed']}\\n"
-            f"Successful conversions: {self.stats['successful_conversions']}\\n"
-            f"Failed conversions: {self.stats['failed_conversions']}\\n"
-            f"Success rate: {self.stats['successful_conversions'] / max(self.stats['messages_processed'], 1) * 100:.1f}%\\n\\n"
-            f"*Cache Stats:*\\n"
-            f"Size: {cache_stats['size']}\\n"
+            f"📊 *Bot Statistics*\n\n"
+            f"Messages processed: {self.stats['messages_processed']}\n"
+            f"Successful conversions: {self.stats['successful_conversions']}\n"
+            f"Failed conversions: {self.stats['failed_conversions']}\n"
+            f"Success rate: {self.stats['successful_conversions'] / max(self.stats['messages_processed'], 1) * 100:.1f}%\n\n"
+            f"*Cache Stats:*\n"
+            f"Size: {cache_stats['size']}\n"
             f"Hit rate: {cache_stats['hit_rate'] * 100:.1f}%"
         )
 
@@ -180,7 +180,7 @@ class MusicBot:
         url = self._extract_url(text)
         if not url:
             await message.reply_text(
-                "❌ Please send a valid music link from Spotify, YouTube Music, or Apple Music\\\\.",
+                "❌ Please send a valid music link from Spotify, YouTube Music, or Apple Music\\.",
                 parse_mode=ParseMode.MARKDOWN_V2
             )
             return
@@ -196,7 +196,7 @@ class MusicBot:
         info = await self.extract_song_info(url)
         if not info:
             await message.reply_text(
-                "❌ Couldn't extract song information from that link\\\\. Please try another\\\.",
+                "❌ Couldn't extract song information from that link\\. Please try another\\.",
                 parse_mode=ParseMode.MARKDOWN_V2
             )
             self.stats['failed_conversions'] += 1
@@ -205,7 +205,7 @@ class MusicBot:
         # Show what we found
         artist_display = info.artist if info.artist else "Unknown Artist"
         await message.reply_text(
-            f"🔍 Found: *{self._escape_markdown(info.title)}* by *{self._escape_markdown(artist_display)}*\\n\\n"
+            f"🔍 Found: *{self._escape_markdown(info.title)}* by *{self._escape_markdown(artist_display)}*\n\n"
             f"Searching other platforms…",
             parse_mode=ParseMode.MARKDOWN_V2
         )
@@ -220,8 +220,8 @@ class MusicBot:
         # Check if we found anything
         if links.count() == 0:
             await message.reply_text(
-                "😕 Couldn't find this song on other platforms\\\\. "
-                "It might be a regional exclusive or rare release\\\.",
+                "😕 Couldn't find this song on other platforms\\. "
+                "It might be a regional exclusive or rare release\\.",
                 parse_mode=ParseMode.MARKDOWN_V2
             )
             self.stats['failed_conversions'] += 1
@@ -353,7 +353,7 @@ class MusicBot:
         artist = info.artist if info.artist else "Unknown Artist"
 
         text = (
-            f"✅ *{self._escape_markdown(info.title)}* by *{self._escape_markdown(artist)}*\\n"
+            f"✅ *{self._escape_markdown(info.title)}* by *{self._escape_markdown(artist)}*\n"
             f"🎧 Choose your platform:"
         )
 
@@ -394,7 +394,7 @@ class MusicBot:
         if match:
             url = match.group(0)
             # Clean trailing punctuation
-            url = re.sub(r'[.,;!?)\}\]>"\']$', '', url)
+            url = re.sub(r'[.,;!?)\]}>"\']$', '', url)
             return url
         return None
 
