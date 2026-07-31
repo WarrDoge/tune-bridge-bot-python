@@ -2,3 +2,6 @@
 *.dist
 music-searcher
 **/*.env
+__pycache__/
+.venv/
+.pytest_cache/
